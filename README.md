@@ -13,7 +13,7 @@ A standalone executable in C++ that uses zlib compression to compress input stri
 
 ### Alternatively 
 The executable can be compiled with<br>
-`g++ compressionzlib.cpp compressionlib.cpp -o zlibcompress -lz`
+`g++ main.cpp compressionlib.cpp -o zlibcompress -lz`
 
 ### Usage
 `./zlibcompress <INPUT_FILE> <OUTPUTFILE>`
