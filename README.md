@@ -8,7 +8,7 @@ A standalone executable in C++ that uses zlib compression to compress input stri
 ## Compiling  Code
 ### Using make
 1. Clone the repo
-2. `cd gsoc2023`
+2. `cd zlibCompression`
 3. `make`
 
 ### Alternatively 
