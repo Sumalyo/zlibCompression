@@ -1,5 +1,5 @@
 zlibcompress: main.o compressionlib.o
-	g++ main.o compressionlib.o -o zlibcompress -lz
+	g++ main.o compressionlib.o -o zlibcompress -lz -lzstd
 
 main.o : main.cpp
 	g++ -c main.cpp

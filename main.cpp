@@ -1,5 +1,6 @@
 # include "compressionlib.h"
 int main(int argc, char* argv[]) {
+    int mode = 0;
     if (argc < 5 ) { 
         if (argc ==2 && strcmp(argv[1],"-h")==0)
         {
@@ -14,19 +15,23 @@ int main(int argc, char* argv[]) {
         else
         {
         std::cerr << "Usage: " << argv[0] << " -f <input_file> \n \
-        OR -i [Interactive Mode] \n \
-        -o <output_file>" << std::endl;
+        -o <output_file> -<mode> \n \
+        \t MODES : \n \
+        \t \t zlib: DEFAULT mode using zlib\n \
+        \t \t zstd: To use the zstd library by meta\
+        OR -i [Interactive Mode] " << std::endl;
         return 1;
         }
     }
-
+    if (argc == 6 && strcmp(argv[5],"-zstd")==0)
+    mode = 1;
     // Compress the input file if in argument input style is set to file
     if (strcmp(argv[1],"-f")==0)
     {
     const std::string outputFilename = argv[4];
     const std::string inputFilename = argv[2];
     auto start = std::chrono::high_resolution_clock::now();
-    if (!compressFile(inputFilename, outputFilename)) 
+    if (!compressFile(inputFilename, outputFilename,mode)) 
         {
         std::cerr<<"Error while compression file "<<std::endl;
         return 1;
@@ -49,8 +54,13 @@ int main(int argc, char* argv[]) {
         std::string outputFilename = argv[3];
         std::cout<<"Enter the Input String"<<std::endl;
         std::getline(std::cin, inputString);
+        int modeStr;
+        std::cout<<"Enter the mode of compression \n \
+        \t Enter 0 for zlib compression\n \
+        \t Enter 1 for using zstd"<<std::endl;
+        std::cin>>modeStr;
         auto start = std::chrono::high_resolution_clock::now();
-        if (!compressString(inputString, outputFilename)) 
+        if (!compressString(inputString, outputFilename, modeStr)) 
         {
         std::cerr<<"Error while compressing string "<<std::endl;
         return 1;

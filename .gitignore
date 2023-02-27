@@ -1,3 +1,5 @@
 *.o
 *.zlib
 zlibcompress
+output.zst
+output
