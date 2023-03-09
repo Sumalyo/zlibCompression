@@ -5,4 +5,6 @@ output.zst
 output
 compressed.txt
 .gitignore
-.gitignore
+textdump.txt
+uncompressed.txt
+enwik9_new
