@@ -3,3 +3,6 @@
 zlibcompress
 output.zst
 output
+compressed.txt
+.gitignore
+.gitignore
