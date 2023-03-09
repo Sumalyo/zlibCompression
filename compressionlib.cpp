@@ -47,9 +47,11 @@ bool compressFile(const std::string& inputFilename, const std::string& outputFil
     int bytesRead = 0;
     int bytesWritten = 0;
     int stat;
+    int flush;
     do {
         // Read a chunk of data from the input file
         inputFile.read(in, CHUNK_SIZE);
+        flush  = inputFile.eof() ? Z_FINISH : Z_NO_FLUSH;
         bytesRead = inputFile.gcount();
         if (bytesRead == 0) {
             break;
@@ -60,12 +62,11 @@ bool compressFile(const std::string& inputFilename, const std::string& outputFil
         do {
             streamzlib.avail_out = CHUNK_SIZE;
             streamzlib.next_out = (Bytef*)out;
-            stat = deflate(&streamzlib, Z_FINISH);
+            stat = deflate(&streamzlib, flush);
             bytesWritten = CHUNK_SIZE - streamzlib.avail_out;
             outputFile.write(out, bytesWritten);
-        } while (streamzlib.avail_out == 0 && stat == Z_OK);
-    } while (bytesRead > 0 );
-
+        } while (streamzlib.avail_out == 0);
+    } while (flush != Z_FINISH);
     // Finalize the zlib stream
     deflateEnd(&streamzlib);
     inputFile.close();
